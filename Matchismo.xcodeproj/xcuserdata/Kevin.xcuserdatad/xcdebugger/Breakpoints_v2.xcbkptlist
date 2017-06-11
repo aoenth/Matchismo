@@ -15,7 +15,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "15"
             endingLineNumber = "15"
-            landmarkName = "playingCardDeck"
+            landmarkName = "deck"
             landmarkType = "24">
          </BreakpointContent>
       </BreakpointProxy>
