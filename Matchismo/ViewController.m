@@ -8,17 +8,26 @@
 
 #import "ViewController.h"
 #import "PlayingCardDeck.h"
+#import "CardMatchingGame.h"
 
 @interface ViewController ()
-@property (weak, nonatomic) IBOutlet UILabel *flipsLabel;
-@property (nonatomic) int flipCount;
+@property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *cardButtons;
+
 @property (strong, nonatomic) Deck *deck;
+@property (strong, nonatomic) CardMatchingGame *game;
 @end
 
 @implementation ViewController
 
+- (CardMatchingGame *)game {
+    if (!_game) _game = [[CardMatchingGame alloc] initWithCardCount:[self.cardButtons count] usingDeck:[self createDeck]];
+    NSLog(@"game initialized");
+    return _game;
+}
+
 - (Deck *)deck {
     if (!_deck) _deck = [self createDeck];
+    NSLog(@"deck created");
     return _deck;
 }
 
@@ -26,34 +35,35 @@
     return [[PlayingCardDeck alloc]init];
 }
 
-- (void)setFlipCount:(int)flipCount {
-    _flipCount = flipCount;
-    self.flipsLabel.text = [NSString stringWithFormat:@"Flips: %d", self.flipCount];
-    NSLog(@"flipCount = %d", self.flipCount);
-}
+
 
 - (IBAction)touchCardButton:(UIButton *)sender {
-    // It actually returns nothing ( a void method )
-    if ([sender.currentTitle length]) {
-        [sender setBackgroundImage:[UIImage imageNamed:@"Card Back"] forState:UIControlStateNormal];
-        [sender setTitle:nil forState:UIControlStateNormal];
-        self.flipCount++;
-    } else {
-        Card *card = [self.deck drawRandomCard];
-        // Trying to flip through the entire deck
-        // If flipCount == 102, stop <-- is very bad solution
-        // Good solution: when the card is empty, don't do anything
-        if (card) {
-            [sender setBackgroundImage:[UIImage imageNamed:@"Card Front"] forState:UIControlStateNormal];
-            [sender setTitle:card.contents forState:UIControlStateNormal];
-            self.flipCount++;
-        }
-    }
-
+    int cardIndex = [self.cardButtons indexOfObject:sender];
+    NSLog(@"cardIndex created");
+    [self.game chooseCardAtIndex:cardIndex];
+    NSLog(@"card chosen at @%d", cardIndex);
+    [self updateUI];
+    NSLog(@"updateUI called");
 
 }
 
+- (void)updateUI {
+    for (UIButton *cardButton in self.cardButtons) {
+        int cardIndex = [self.cardButtons indexOfObject:cardButton];
+        Card *card = [self.game cardAtIndex:cardIndex];
+        [cardButton setTitle:[self titleForCard:card] forState:UIControlStateNormal];
+        [cardButton setBackgroundImage:[self backgroundImageForCard:card] forState:UIControlStateNormal];
+        cardButton.enabled = !card.isMatched;
+    }
+}
 
+- (NSString *)titleForCard:(Card *)card {
+    return card.isChosen ? card.contents : @"";
+}
+
+- (UIImage *)backgroundImageForCard:(Card *)card {
+    return [UIImage imageNamed:card.isChosen ? @"Card Front" : @"Card Back"];
+}
 
 
 @end
