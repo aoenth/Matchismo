@@ -12,6 +12,7 @@
 
 @interface ViewController ()
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *cardButtons;
+@property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
 
 @property (strong, nonatomic) Deck *deck;
 @property (strong, nonatomic) CardMatchingGame *game;
@@ -21,13 +22,11 @@
 
 - (CardMatchingGame *)game {
     if (!_game) _game = [[CardMatchingGame alloc] initWithCardCount:[self.cardButtons count] usingDeck:[self createDeck]];
-    NSLog(@"game initialized");
     return _game;
 }
 
 - (Deck *)deck {
     if (!_deck) _deck = [self createDeck];
-    NSLog(@"deck created");
     return _deck;
 }
 
@@ -39,11 +38,8 @@
 
 - (IBAction)touchCardButton:(UIButton *)sender {
     int cardIndex = [self.cardButtons indexOfObject:sender];
-    NSLog(@"cardIndex created");
     [self.game chooseCardAtIndex:cardIndex];
-    NSLog(@"card chosen at @%d", cardIndex);
     [self updateUI];
-    NSLog(@"updateUI called");
 
 }
 
@@ -54,6 +50,7 @@
         [cardButton setTitle:[self titleForCard:card] forState:UIControlStateNormal];
         [cardButton setBackgroundImage:[self backgroundImageForCard:card] forState:UIControlStateNormal];
         cardButton.enabled = !card.isMatched;
+        self.scoreLabel.text = [NSString stringWithFormat:@"Score: %d", self.game.score];
     }
 }
 

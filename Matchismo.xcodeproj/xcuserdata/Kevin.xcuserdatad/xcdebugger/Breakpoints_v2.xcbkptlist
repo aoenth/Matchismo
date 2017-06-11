@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Matchismo/Model/CardMatchingGame.m"
-            timestampString = "518849393.749882"
+            timestampString = "518852984.739422"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "61"
-            endingLineNumber = "61"
+            startingLineNumber = "56"
+            endingLineNumber = "56"
             landmarkName = "-chooseCardAtIndex:"
             landmarkType = "7">
          </BreakpointContent>
@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Matchismo/Model/CardMatchingGame.m"
-            timestampString = "518849393.749882"
+            timestampString = "518852984.739422"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "61"
-            endingLineNumber = "61"
+            startingLineNumber = "56"
+            endingLineNumber = "56"
             landmarkName = "-chooseCardAtIndex:"
             landmarkType = "7">
          </BreakpointContent>
@@ -42,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Matchismo/ViewController.m"
-            timestampString = "518848970.858627"
+            timestampString = "518853748.757911"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "65"
-            endingLineNumber = "65"
+            startingLineNumber = "62"
+            endingLineNumber = "62"
             landmarkName = "-backgroundImageForCard:"
             landmarkType = "7">
          </BreakpointContent>
@@ -58,12 +58,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Matchismo/ViewController.m"
-            timestampString = "518848970.858627"
+            timestampString = "518853680.420424"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "42"
-            endingLineNumber = "42"
-            landmarkName = "-touchCardButton:"
+            startingLineNumber = "53"
+            endingLineNumber = "53"
+            landmarkName = "-updateUI"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

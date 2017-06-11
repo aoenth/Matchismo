@@ -19,7 +19,6 @@
 
 - (NSMutableArray *)cards {
     if (!_cards) _cards = [[NSMutableArray alloc]init];
-    NSLog(@"lazy cards initialized in CardMatchingGame.m");
     return _cards;
 }
 - (instancetype)initWithCardCount:(NSUInteger)count usingDeck: (Deck *)deck {
@@ -35,7 +34,6 @@
             }
         }
     }
-    NSLog(@"initWithCardCount: %d", count);
     return self;
 }
 
@@ -47,10 +45,7 @@
 
 - (void)chooseCardAtIndex:(NSUInteger)index {
     Card *card = [self cardAtIndex:index];
-    NSLog(@"card is good with %@", [card contents]);
-    NSLog(@"card is %@", [card isMatched] ? @"matched" : @"not matched");
     if (!card.isMatched) {
-        NSLog(@"This card isn't matched!");
         if (card.isChosen) {
             card.chosen = NO;
         } else {
