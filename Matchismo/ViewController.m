@@ -17,6 +17,15 @@
 
 @implementation ViewController
 
+- (Deck *)deck {
+    if (!_deck) _deck = [self createDeck];
+    return _deck;
+}
+
+- (Deck *)createDeck {
+    return [[PlayingCardDeck alloc]init];
+}
+
 - (void)setFlipCount:(int)flipCount {
     _flipCount = flipCount;
     self.flipsLabel.text = [NSString stringWithFormat:@"Flips: %d", self.flipCount];
@@ -24,16 +33,23 @@
 }
 
 - (IBAction)touchCardButton:(UIButton *)sender {
-    PlayingCardDeck *newCard = [[PlayingCardDeck alloc]init];
     // It actually returns nothing ( a void method )
     if ([sender.currentTitle length]) {
         [sender setBackgroundImage:[UIImage imageNamed:@"Card Back"] forState:UIControlStateNormal];
         [sender setTitle:nil forState:UIControlStateNormal];
+        self.flipCount++;
     } else {
-        [sender setBackgroundImage:[UIImage imageNamed:@"Card Front"] forState:UIControlStateNormal];
-        [sender setTitle:[[newCard drawRandomCard] contents] forState:UIControlStateNormal];
+        Card *card = [self.deck drawRandomCard];
+        // Trying to flip through the entire deck
+        // If flipCount == 102, stop <-- is very bad solution
+        // Good solution: when the card is empty, don't do anything
+        if (card) {
+            [sender setBackgroundImage:[UIImage imageNamed:@"Card Front"] forState:UIControlStateNormal];
+            [sender setTitle:card.contents forState:UIControlStateNormal];
+            self.flipCount++;
+        }
     }
-    self.flipCount++;
+
 
 }
 
