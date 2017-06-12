@@ -12,6 +12,7 @@
 // only use readwrite if .h file uses read only
 @property (nonatomic, readwrite) NSInteger score;
 @property (nonatomic, strong) NSMutableArray *cards; // of Cards
+@property (nonatomic) int numberOfCardsChosen;
 
 @end
 
@@ -44,30 +45,44 @@
 // static const int MISMATCH_PENALTY = 2;
 
 - (void)chooseCardAtIndex:(NSUInteger)index {
+    NSLog(@"Number of Cards Chosen before at %d: %d", index, _numberOfCardsChosen);
     Card *card = [self cardAtIndex:index];
     if (!card.isMatched) {
         if (card.isChosen) {
             card.chosen = NO;
         } else {
             // match against another card
+            _numberOfCardsChosen++;
+            card.chosen = YES;
             for (Card *otherCard in self.cards) {
-                if (otherCard.isChosen && !otherCard.isMatched) {
+                if (otherCard.isChosen && !otherCard.isMatched && _numberOfCardsChosen == 3) {
+                    for (Card *chosenCards in self.cards) {
+                        if (chosenCards.isChosen) chosenCards.matched = YES;
+                    }
                     int matchScore = [card match:@[otherCard]];
                     if (matchScore) {
                         self.score += matchScore * MATCH_BONUS;
-                        card.matched = YES;
-                        otherCard.matched = YES;
+                        for (Card *chosenCards in self.cards) {
+                            if (chosenCards.isChosen) chosenCards.matched = YES;
+                        }
+                        NSLog(@"Matched! Scored %d", matchScore);
                     } else {
                         self.score -= MISMATCH_PENALTY;
-                        otherCard.chosen = NO;
+                        for (Card *chosenCards in self.cards) {
+                            if (!chosenCards.isMatched) chosenCards.chosen = NO;
+                        }
+                        NSLog(@"No Match! Scored %d", matchScore);
+                        _numberOfCardsChosen = 0;
+                        return;
                     }
+                    _numberOfCardsChosen = 0;
                     break;
                 }
             }
             self.score -= COST_TO_CHOOSE;
-            card.chosen = YES;
         }
     }
+    NSLog(@"Number of Cards Chosen after at %d: %d", index, _numberOfCardsChosen);
 }
 
 

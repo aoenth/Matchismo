@@ -11,17 +11,25 @@
 @implementation PlayingCard
 
 - (int)match:(NSArray *)otherCards {
-    int score = 0;
-    
+
     if ([otherCards count] == 1) {
         PlayingCard *otherCard = [otherCards firstObject]; // if array is empty, it returns nil, instead of crash if accessed at index = 0
-        if ([self.suit isEqualToString:otherCard.suit]) {
-            score = 1;
-        } else if (self.rank == otherCard.rank) {
-            score = 4;
+        return [self getScore:self :otherCard];
+    } else if ([otherCards count] == 2) {
+        if ([self getScore:self :[otherCards firstObject]] && [self getScore:self :otherCards[1]]) {
+            return 16;
         }
     }
-    return score;
+    return 0;
+}
+
+- (int)getScore:(PlayingCard *)card1 :(PlayingCard *)card2 {
+    if ([card1.suit isEqualToString:card2.suit]) {
+        return 1;
+    } else if (card1.rank == card2.rank) {
+        return 4;
+    }
+    return 0;
 }
 
 - (NSString *)contents {
