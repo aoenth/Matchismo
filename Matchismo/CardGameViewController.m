@@ -1,16 +1,15 @@
 //
-//  ViewController.m
+//  CardGameViewController.m
 //  Matchismo
 //
 //  Created by Kevin on 2017-06-09.
 //  Copyright © 2017 Monorail Apps. All rights reserved.
 //
 
-#import "ViewController.h"
-#import "PlayingCardDeck.h"
+#import "CardGameViewController.h"
 #import "CardMatchingGame.h"
 
-@interface ViewController ()
+@interface CardGameViewController ()
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *cardButtons;
 @property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
 
@@ -18,7 +17,7 @@
 @property (strong, nonatomic) CardMatchingGame *game;
 @end
 
-@implementation ViewController
+@implementation CardGameViewController
 
 - (CardMatchingGame *)game {
     if (!_game) _game = [[CardMatchingGame alloc] initWithCardCount:[self.cardButtons count] usingDeck:[self createDeck]];
@@ -30,8 +29,8 @@
     return _deck;
 }
 
-- (Deck *)createDeck {
-    return [[PlayingCardDeck alloc]init];
+- (Deck *)createDeck { // abstract
+    return nil;
 }
 
 
