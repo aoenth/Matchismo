@@ -11,7 +11,7 @@
 
 @interface CardGameViewController ()
 @property (strong, nonatomic)  NSArray<UIButton *> *cardButtons;
-@property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
+@property (strong, nonatomic) UILabel *scoreLabel;
 
 @property (strong, nonatomic) Deck *deck;
 @property (strong, nonatomic) CardMatchingGame *game;
@@ -21,11 +21,32 @@
 
 - (void)viewDidLoad
 {
+    [self addButtons];
+    [self addScoreLabel];
+}
+
+- (void)addScoreLabel
+{
+    UILabel *label = UILabel.new;
+    label.translatesAutoresizingMaskIntoConstraints = NO;
+    label.text = [NSString stringWithFormat:@"Score: %d", self.game.score];
+    [self.view addSubview:label];
+
+    [NSLayoutConstraint activateConstraints:@[
+        [label.centerXAnchor constraintEqualToAnchor:self.view.centerXAnchor],
+        [label.bottomAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.bottomAnchor constant:-64]
+    ]];
+
+    self.scoreLabel = label;
+}
+
+- (void)addButtons
+{
     UIStackView *vStack = UIStackView.new;
     vStack.axis = UILayoutConstraintAxisVertical;
     vStack.translatesAutoresizingMaskIntoConstraints = NO;
     vStack.spacing = 8;
-    
+
     NSMutableArray<UIButton *> *buttons = NSMutableArray.new;
 
     for (NSInteger i = 0; i < 3; i++) {
@@ -47,7 +68,7 @@
         }
         [vStack addArrangedSubview:hStack];
     }
-    
+
     [self.view addSubview:vStack];
 
     [NSLayoutConstraint activateConstraints:@[
