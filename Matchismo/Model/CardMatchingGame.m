@@ -10,7 +10,7 @@
 
 @interface CardMatchingGame()
 // only use readwrite if .h file uses read only
-@property (nonatomic, readwrite) NSInteger score;
+@property (nonatomic, readwrite) int score;
 @property (nonatomic, strong) NSMutableArray *cards; // of Cards
 
 @end
@@ -51,7 +51,7 @@
         } else {
             // match against another card
             for (Card *otherCard in self.cards) {
-                if (otherCard.isChosen && !otherCard.isMatched) {
+                if (otherCard.isChosen && !otherCard.isMatched && otherCard != card) {
                     int matchScore = [card match:@[otherCard]];
                     if (matchScore) {
                         self.score += matchScore * MATCH_BONUS;

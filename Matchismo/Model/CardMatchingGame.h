@@ -19,7 +19,7 @@
 - (Card *)cardAtIndex:(NSUInteger)index;
 
 // read only, nobody should set the score, in other words, the setter is disabled
-@property (nonatomic, readonly) NSInteger score;
+@property (nonatomic, readonly) int score;
 
 
 @end
