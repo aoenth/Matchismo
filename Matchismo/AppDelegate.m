@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "CardGameViewController.h"
 
 @interface AppDelegate ()
 
@@ -15,8 +16,7 @@
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
-    UIViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"main"];
+    UIViewController *vc = CardGameViewController.new;
 
     UIWindow *window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
     window.rootViewController = vc;

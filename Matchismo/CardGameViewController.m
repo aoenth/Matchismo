@@ -21,6 +21,8 @@
 
 - (void)viewDidLoad
 {
+    UIColor *color = [[UIColor alloc] initWithRed:0.229 green:0.501960814 blue:0.25098041 alpha:1];
+    [self.view setBackgroundColor:color];
     [self addButtons];
     [self addScoreLabel];
 }
